@@ -6,3 +6,4 @@
  */
 
 rootProject.name = "task-tracker"
+include("backend", "frontend")
