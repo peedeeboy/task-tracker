@@ -1,3 +1,4 @@
+
 plugins {
     kotlin("jvm") version "2.2.21"
     kotlin("plugin.spring") version "2.2.21"
@@ -20,6 +21,31 @@ java {
 repositories {
     mavenCentral()
 }
+
+val integrationTest: SourceSet = sourceSets.create("integrationTest") {
+    kotlin {
+        compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+        runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+        srcDir("src/integrationTest/kotlin")
+    }
+    resources.srcDir("src/integrationTest/resources")
+}
+
+val integrationTestTask = tasks.register<Test>("integrationTest") {
+    group = "verification"
+
+    testClassesDirs = integrationTest.output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+
+    shouldRunAfter("test")
+}
+
+tasks.check {
+    dependsOn(integrationTestTask)
+}
+
+configurations[integrationTest.implementationConfigurationName].extendsFrom(configurations.testImplementation.get())
+configurations[integrationTest.runtimeOnlyConfigurationName].extendsFrom(configurations.testRuntimeOnly.get())
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-h2console")

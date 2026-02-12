@@ -149,7 +149,7 @@ class TaskControllerTest() : FreeSpec() {
                 body shouldBe createdTask
             }
 
-            "when task is valid should return ErrorDetail and HTTP 400 Bad Request" {
+            "when task is invalid should return ErrorDetail and HTTP 400 Bad Request" {
                 // Given
                 val task = Task(
                     id = 100,

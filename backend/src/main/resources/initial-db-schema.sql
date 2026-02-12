@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS tasks (
     title       VARCHAR(255)                NOT NULL,
     description CLOB,
     status      VARCHAR(50)                 NOT NULL,
-    dueDate     TIMESTAMP WITH TIME ZONE    NOT NULL
+    due_date     TIMESTAMP WITH TIME ZONE    NOT NULL
 );
