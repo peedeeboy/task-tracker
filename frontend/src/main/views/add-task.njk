@@ -1,0 +1,91 @@
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+
+{% extends "template.njk" %}
+
+{% block beforeContent %}
+    {{ govukBreadcrumbs({
+      items: [
+        {
+          text: "Home",
+          href: "/"
+        },
+        {
+          text: "Add task",
+          href: "/task/add"
+        }
+      ]
+    }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST">
+      {% call govukFieldset({
+        legend: {
+          text: "Add new task",
+          classes: "govuk-fieldset__legend--l",
+          isPageHeading: true
+        }
+      }) %}
+
+        {{ govukInput({
+          label: {
+            text: "Title",
+            classes: "govuk-label--s"
+          },
+          id: "title",
+          name: "title",
+          autocomplete: "Task title"
+        }) }}
+
+
+        {{ govukTextarea({
+          name: "description",
+          id: "description",
+          label: {
+            text: "Description",
+            classes: "govuk-label--s",
+            isPageHeading: false
+          }
+        }) }}
+
+        {{ govukDateInput({
+          id: "due-date",
+          namePrefix: "due-date",
+          fieldset: {
+            legend: {
+              text: "Due date",
+              isPageHeading: false,
+              classes: "govuk-label--s"
+            }
+          }
+        }) }}
+
+      {% endcall %}
+
+      <div class="govuk-button-group">
+        {{ govukButton({
+          text: "Save and continue"
+        }) }}
+
+        {{ govukButton({
+          text: "Cancel",
+          href: "/",
+          classes: "govuk-button--secondary"
+        }) }}
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}
