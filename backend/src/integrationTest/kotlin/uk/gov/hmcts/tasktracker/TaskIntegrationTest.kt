@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.client.expectBody
 import uk.gov.hmcts.tasktracker.model.ErrorDetail
 import uk.gov.hmcts.tasktracker.model.Task
 import uk.gov.hmcts.tasktracker.repository.TaskRepository
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.time.Month
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -43,7 +43,7 @@ class TaskIntegrationTest : FreeSpec() {
                 title = "A Task",
                 description = "A Task description",
                 status = "IN PROGRESS",
-                dueDate = LocalDateTime.of(2020, Month.APRIL, 11, 22, 0),
+                dueDate = LocalDate.of(2020, 4, 11),
             )
 
             // When
@@ -76,7 +76,7 @@ class TaskIntegrationTest : FreeSpec() {
                 title = "A saved Task",
                 description = "A saved Task description",
                 status = "IN PROGRESS",
-                dueDate = LocalDateTime.of(2020, Month.APRIL, 11, 22, 0),
+                dueDate = LocalDate.of(2020, 4, 11)
             )
             val savedTask = taskRepository.save(task)
 
@@ -103,14 +103,14 @@ class TaskIntegrationTest : FreeSpec() {
                 title = "A saved Task",
                 description = "A saved Task description",
                 status = "IN PROGRESS",
-                dueDate = LocalDateTime.of(2020, Month.APRIL, 11, 22, 0),
+                dueDate = LocalDate.of(2020, 4, 11),
             )
             val task2 = Task(
                 id = null,
                 title = "Another saved Task",
                 description = "Another saved Task description",
                 status = "COMPLETED",
-                dueDate = LocalDateTime.of(2020, Month.APRIL, 11, 22, 0),
+                dueDate = LocalDate.of(2020, 4, 11),
             )
             val savedTask1 = taskRepository.save(task1)
             val savedTask2 = taskRepository.save(task2)
@@ -145,7 +145,7 @@ class TaskIntegrationTest : FreeSpec() {
                 title = "A Task",
                 description = "A Task description",
                 status = "IN PROGRESS",
-                dueDate = LocalDateTime.of(2020, Month.APRIL, 11, 22, 0),
+                dueDate = LocalDate.of(2020, 4, 11),
             )
             val savedTask = taskRepository.save(task)
             val updatedTask = savedTask.copy(status = "COMPLETED")
@@ -196,7 +196,7 @@ class TaskIntegrationTest : FreeSpec() {
                 title = "A Task",
                 description = "A Task description",
                 status = "IN PROGRESS",
-                dueDate = LocalDateTime.of(2020, Month.APRIL, 11, 22, 0),
+                dueDate = LocalDate.of(2020, 4, 11),
             )
 
             // When
@@ -219,7 +219,7 @@ class TaskIntegrationTest : FreeSpec() {
                 title = "A Task",
                 description = "A Task description",
                 status = "IN PROGRESS",
-                dueDate = LocalDateTime.of(2020, Month.APRIL, 11, 22, 0),
+                dueDate = LocalDate.of(2020, 4, 11),
             )
 
             // When

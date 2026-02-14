@@ -11,7 +11,7 @@ import uk.gov.hmcts.tasktracker.infrastructure.exception.UnexpectedTaskIdExcepti
 import uk.gov.hmcts.tasktracker.infrastructure.exception.TaskNotFoundException
 import uk.gov.hmcts.tasktracker.model.Task
 import uk.gov.hmcts.tasktracker.repository.TaskRepository
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.util.Optional
 
 class TaskServiceTest : FreeSpec() {
@@ -27,7 +27,7 @@ class TaskServiceTest : FreeSpec() {
                     title = "A Task",
                     description = null,
                     status = "COMPLETED",
-                    dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                    dueDate = LocalDate.of(2020, 1, 1),
                 )
                 val createdTask = task.copy(id = 500)
                 val taskRepository = mockk<TaskRepository>()
@@ -49,7 +49,7 @@ class TaskServiceTest : FreeSpec() {
                     title = "A Task",
                     description = null,
                     status = "COMPLETED",
-                    dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                    dueDate = LocalDate.of(2020, 1, 1),
                 )
                 val taskRepository = mockk<TaskRepository>()
 
@@ -127,7 +127,7 @@ class TaskServiceTest : FreeSpec() {
                     title = "A Task",
                     description = null,
                     status = "COMPLETED",
-                    dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                    dueDate = LocalDate.of(2020, 1, 1),
                 )
                 val taskRepository = mockk<TaskRepository>()
                 every { taskRepository.save(task) } returns task
@@ -148,7 +148,7 @@ class TaskServiceTest : FreeSpec() {
                     title = "A Task",
                     description = null,
                     status = "COMPLETED",
-                    dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                    dueDate = LocalDate.of(2020, 1, 1),
                 )
                 val taskRepository = mockk<TaskRepository>()
                 every { taskRepository.save(task) } returns task

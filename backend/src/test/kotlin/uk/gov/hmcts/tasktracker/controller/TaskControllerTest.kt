@@ -18,7 +18,7 @@ import uk.gov.hmcts.tasktracker.infrastructure.exception.UnexpectedTaskIdExcepti
 import uk.gov.hmcts.tasktracker.model.ErrorDetail
 import uk.gov.hmcts.tasktracker.model.Task
 import uk.gov.hmcts.tasktracker.service.TaskService
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 @WebMvcTest(controllers = [TaskController::class])
 @AutoConfigureRestTestClient
@@ -48,14 +48,14 @@ class TaskControllerTest() : FreeSpec() {
                         title = "Task 100",
                         description = "A thing to do",
                         status = "COMPLETED",
-                        dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                        dueDate = LocalDate.of(2020, 1, 1),
                     ),
                     Task(
                         id = 200,
                         title = "Task 200",
                         description = "Another thing to do",
                         status = "COMPLETED",
-                        dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                        dueDate = LocalDate.of(2020, 1, 1),
                     )
                 )
                 every { taskService.getAllTasks() } returns tasks
@@ -83,7 +83,7 @@ class TaskControllerTest() : FreeSpec() {
                     title = "Task 100",
                     description = "A thing to do",
                     status = "COMPLETED",
-                    dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                    dueDate = LocalDate.of(2020, 1, 1),
                 )
                 every { taskService.getTaskById(100) } returns task
 
@@ -129,7 +129,7 @@ class TaskControllerTest() : FreeSpec() {
                     title = "Task 100",
                     description = "A thing to do",
                     status = "COMPLETED",
-                    dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                    dueDate = LocalDate.of(2020, 1, 1),
                 )
                 val createdTask = task.copy(id = 500)
                 every { taskService.createTask(task) } returns createdTask
@@ -156,7 +156,7 @@ class TaskControllerTest() : FreeSpec() {
                     title = "Task 100",
                     description = "A thing to do",
                     status = "COMPLETED",
-                    dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                    dueDate = LocalDate.of(2020, 1, 1),
                 )
                 every { taskService.createTask(task) } throws UnexpectedTaskIdException()
 
@@ -185,7 +185,7 @@ class TaskControllerTest() : FreeSpec() {
                     title = "Task 100",
                     description = "A thing to do",
                     status = "INCOMPLETE",
-                    dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                    dueDate = LocalDate.of(2020, 1, 1),
                 )
                 val updatedTask = task.copy(status = "COMPLETED")
                 every { taskService.updateTask(100, task) } returns updatedTask
@@ -212,7 +212,7 @@ class TaskControllerTest() : FreeSpec() {
                     title = "Task 100",
                     description = "A thing to do",
                     status = "INCOMPLETE",
-                    dueDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0),
+                    dueDate = LocalDate.of(2020, 1, 1),
                 )
                 every { taskService.updateTask(200, task) } throws TaskIdMismatchException(200, 100)
 

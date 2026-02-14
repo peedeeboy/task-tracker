@@ -2,7 +2,7 @@ package uk.gov.hmcts.tasktracker.model
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 @Table("TASKS")
 data class Task (
@@ -11,5 +11,5 @@ data class Task (
     val title: String,
     val description: String?,
     val status: String,
-    val dueDate: LocalDateTime
+    val dueDate: LocalDate
 )
