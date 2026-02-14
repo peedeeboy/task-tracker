@@ -1,0 +1,133 @@
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% extends "template.njk" %}
+
+{% block beforeContent %}
+    {% set taskHref = '/task/{{ task.id }}' %}
+
+    {{ govukBreadcrumbs({
+      items: [
+        {
+          text: "Home",
+          href: "/"
+        },
+        {
+          text: "Task ",
+          href: taskHref
+        }
+      ]
+    }) }}
+{% endblock %}
+
+{% block content %}
+    {% set dateParts = task.dueDate.split('-') %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <form method="POST">
+          {% call govukFieldset({
+            legend: {
+              text: "Edit task",
+              classes: "govuk-fieldset__legend--l",
+              isPageHeading: true
+            }
+          }) %}
+
+            {{ govukInput({
+              label: {
+                text: "Title",
+                classes: "govuk-label--s"
+              },
+              id: "title",
+              name: "title",
+              autocomplete: "Task title",
+              value: task.title
+            }) }}
+
+            {{ govukTextarea({
+              name: "description",
+              id: "description",
+              value: task.description,
+              label: {
+                text: "Description",
+                classes: "govuk-label--s"
+              }
+            }) }}
+
+            {{ govukSelect({
+              id: "status",
+              name: "status",
+              value: task.status,
+              label: {
+                text: "Status"
+              },
+              items: [
+                {
+                  value: "Not started",
+                  text: "Not started"
+                },
+                {
+                  value: "In progress",
+                  text: "In progress"
+                },
+
+                {
+                  value: "Complete",
+                  text: "Complete"
+                }
+              ]
+            }) }}
+
+            {{ govukDateInput({
+              id: "due-date",
+              namePrefix: "due-date",
+              fieldset: {
+                legend: {
+                  text: "Due date",
+                  isPageHeading: false,
+                  classes: "govuk-label--s"
+                }
+              },
+              items: [
+                  {
+                    name: "day",
+                    value: dateParts[2],
+                    classes: "govuk-input--width-2"
+                  },
+                  {
+                    name: "month",
+                    value: dateParts[1],
+                    classes: "govuk-input--width-2"
+                  },
+                  {
+                    name: "year",
+                    value: dateParts[0],
+                    classes: "govuk-input--width-4"
+                  }
+                ]
+            }) }}
+
+          {% endcall %}
+
+          <div class="govuk-button-group">
+            {{ govukButton({
+              text: "Update and continue"
+            }) }}
+
+            {{ govukButton({
+              text: "Cancel",
+              href: "/",
+              classes: "govuk-button--secondary"
+            }) }}
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+{% endblock %}
