@@ -6,8 +6,7 @@
 {% extends "template.njk" %}
 
 {% block content %}
-  <h1 class="govuk-heading-xl">HMCTS Task Tracker</h1>
-  <h2 class="govuk-heading-m">Outstanding Tasks</h2>
+  <h1 class="govuk-heading-xl">Outstanding Tasks</h1>
   {% if tasks|length %}
 
     {% set tableRows = [] %}
@@ -22,8 +21,6 @@
     {% endfor %}
 
     {{ govukTable({
-      caption: "Tasks due soon",
-      captionClasses: "govuk-table__caption--m",
       firstCellIsHeader: true,
       head: [
         {
