@@ -1,119 +1,53 @@
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{%- from "govuk/components/tag/macro.njk" import govukTag -%}
 
 {% extends "template.njk" %}
 
-<!-- You may want to make further use of these components: https://design-system.service.gov.uk/components/
-but ultimately it is up to you -->
-
 {% block content %}
-  <h1 class="govuk-heading-xl">Welcome to your dev test!</h1>
+  <h1 class="govuk-heading-xl">HMCTS Task Tracker</h1>
+  <h2 class="govuk-heading-m">Outstanding Tasks</h2>
+  {% if tasks|length %}
 
-  <!-- The freedom is yours. You can design the solution however you like, however there is a starting point provided
-  to ensure you have both services running. You may want to make use of the Gov UK Components:
-  https://design-system.service.gov.uk/components/ to add tabs and so forth :) -->
+    {% set tableRows = [] %}
+    {% for task in tasks %}
+        {% set editLink = '<a href="{{ task.id }}">Edit</a>' %}
+        {% set tableRows = (tableRows.push([
+            { text: task.title },
+            { text: task.dueDate},
+            { text: task.status},
+            { html: ("<a href='task/" + task.id + "'>Edit</a>")}
+        ]), tableRows) %}
+    {% endfor %}
 
-  {% if example.id %}
-
-    {{ govukSummaryList({
-      rows: [
+    {{ govukTable({
+      caption: "Tasks due soon",
+      captionClasses: "govuk-table__caption--m",
+      firstCellIsHeader: true,
+      head: [
         {
-          key: {
-            text: "ID"
-          },
-          value: {
-            text: example.id
-          },
-          actions: {
-            items: [
-              {
-                href: "#",
-                text: "Change",
-                visuallyHiddenText: "change case id ?!"
-              }
-            ]
-          }
+          text: "Task"
         },
         {
-          key: {
-            text: "Case Number"
-          },
-          value: {
-            text: example.caseNumber
-          },
-          actions: {
-            items: [
-              {
-                href: "#",
-                text: "Change",
-                visuallyHiddenText: "change case number"
-              }
-            ]
-          }
+          text: "Due Date"
         },
         {
-          key: {
-            text: "Title"
-          },
-          value: {
-            html: example.title
-          },
-          actions: {
-            items: [
-              {
-                href: "#",
-                text: "Change",
-                visuallyHiddenText: "change case title"
-              }
-            ]
-          }
+          text: "Status"
         },
         {
-          key: {
-            text: "Description"
-          },
-          value: {
-            html: example.description
-          },
-          actions: {
-            items: [
-               {
-                 href: "#",
-                 text: "Delete",
-                 visuallyHiddenText: "Delete description"
-               },
-               {
-                 href: "#",
-                 text: "Change",
-                 visuallyHiddenText: "Change description"
-               }
-            ]
-          }
-        },
-        {
-          key: {
-            text: "Status"
-          },
-          value: {
-            html: example.status
-          },
-          actions: {
-            items: [
-            ]
-          }
-        },
-        {
-          key: {
-           text: "Created Date"
-          },
-          value: {
-           html: example.createdDate
-          },
-          actions: {
-           items: [
-           ]
-          }
+          text: ""
         }
-      ]
+      ],
+      rows: tableRows
+    }) }}
+
+
+
+  {% else %}
+
+    {{ govukWarningText({
+      text: "No outstanding tasks!",
+      iconFallbackText: "Warning"
     }) }}
 
   {% endif %}
