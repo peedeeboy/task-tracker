@@ -24,7 +24,9 @@ export default function (app: Application): void {
          const dueDateMonth = req.body['due-date-month']
          const dueDateYear = req.body['due-date-year']
 
-         const dueDate = `${dueDateYear}-${dueDateMonth}-${dueDateDay}`
+         const dueDate = new Date()
+         dueDate.setUTCFullYear(dueDateYear, dueDateMonth - 1, dueDateDay)
+
          axios.post('http://localhost:4000/api/tasks',
             {
               title: title,
@@ -61,7 +63,9 @@ export default function (app: Application): void {
         const dueDateMonth = req.body['due-date-month']
         const dueDateYear = req.body['due-date-year']
 
-        const dueDate = `${dueDateYear}-${dueDateMonth}-${dueDateDay}`
+        const dueDate = new Date()
+        dueDate.setUTCFullYear(dueDateYear, dueDateMonth - 1, dueDateDay)
+
         axios.put(`http://localhost:4000/api/tasks/${taskId}`,
             {
               id: taskId,
