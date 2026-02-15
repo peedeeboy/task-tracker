@@ -4,16 +4,22 @@ Task Tracker application for HM Courts & Tribunals Service technical test.
 ![Task Tracker Screenshot](/docs/screenshot.jpg)
 
 ## Getting started
-Clone this repo and run:
+Clone this repo and download / build dependencies:
 ```shell
-./gradlew runStack
+./gradlew :backend:assemble
+./gradlew :frontend:yarnBuild
+```
+
+and then:
+```shell
+./runstack.sh
 ```
 
 to stand up the entire application stack. This will spawn two Gradle parallel process running:
 * **Backend**: http://localhost:4000
-* **Frontend**: https://localhost:3100
+* **Frontend**: http://localhost:3100
 
-Navigate to https://localhost:3100 in your browser to view / interact with the application.
+Navigate to http://localhost:3100 in your browser to view / interact with the application.
 
 ## Running Tests
 ### Backend
