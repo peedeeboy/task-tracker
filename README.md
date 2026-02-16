@@ -75,3 +75,4 @@ Things I would have improved upon if time had allowed:
 * Fontend views of Completed / Outstanding / Almost Due tasks
 * Sorting / filtering of tasks
 * Enum + validation of Task status
+* Add a task add/updated view rather than redirecting back to home page
